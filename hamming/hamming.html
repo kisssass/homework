@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>Hamming code</title>
+    <script>
+    function code(){
+        let mes = document.getElementById('inputMessage').value;
+        
+        for(let i = 0; i < mes.length; i++) 
+            mes [i] *=1;
+        if(((mes[0]*1) + (mes[1]*1) + (mes[3]*1))%2 == 0 ){
+            mes +='0';
+        }else{
+            mes += '1';
+        }
+        if(((mes[1]*1) + (mes[2]*1) + (mes[3]*1))%2 == 0 ){
+            mes +='0';
+        }else{
+            mes += '1';
+        }
+        if(((mes[0]*1) + (mes[2]*1) + (mes[3]*1))%2 == 0 ){
+            mes +='0';
+        }else{
+            mes += '1';
+        }
+        document.getElementById('codedMessage').value = mes;
+    }  
+    function decode(){
+        let mes = document.getElementById('codedMessage').value;
+
+        for(let i = 0; i < mes.length; i++) 
+            mes [i] *=1;
+        if((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 == 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 == 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 == 0 )){
+            document.getElementById('decodedMessage').value = (mes[0] + mes[1] + mes[2] + mes[3]);
+        }else if(((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 != 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 == 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 == 0 )) ||
+        ((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 == 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 != 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 == 0 )) ||
+        ((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 == 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 == 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 != 0 ))){
+            document.getElementById('decodedMessage').value = (mes[0] + mes[1] + mes[2] + mes[3] );
+        }else if((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 != 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 != 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 == 0 )){
+            if((mes[1]*1)==1){
+                document.getElementById('decodedMessage').value = (mes[0] + '0' + mes[2] + mes[3] );
+            }else{
+                document.getElementById('decodedMessage').value = (mes[0] + '1' + mes[2] + mes[3] );
+            }
+        }else if((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 != 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 == 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 != 0 )){
+            if((mes[0]*1)==1){
+                document.getElementById('decodedMessage').value = ('0' + mes[1] + mes[2] + mes[3] );
+            }else{
+                document.getElementById('decodedMessage').value = ('1' + mes[1] + mes[2] + mes[3] );
+            }
+        }else if((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 == 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 != 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 != 0 )){
+            if((mes[2]*1)==1){
+                document.getElementById('decodedMessage').value = (mes[0] + mes[1] + '0' + mes[3] );
+            }else{
+                document.getElementById('decodedMessage').value = (mes[0] + mes[1] + '1' + mes[3] );
+            }
+        }else if((((mes[0]*1) + (mes[1]*1) + (mes[3]*1) + (mes[4]*1))%2 != 0 ) &&
+        (((mes[1]*1) + (mes[2]*1) + (mes[3]*1) + (mes[5]*1))%2 != 0 ) &&
+        (((mes[0]*1) + (mes[2]*1) + (mes[3]*1) + (mes[6]*1))%2 != 0 )){
+            if((mes[0]*1)==1){
+                document.getElementById('decodedMessage').value = (mes[0] + mes[1] + mes[2] + '0' );
+            }else{
+                document.getElementById('decodedMessage').value = (mes[0] + mes[1] + mes[2] + '1' );
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <hl>My Hamming Code</hl>
+    <p><input type='text' id='inputMessage'/>four bites to code</p>
+    <p><input type='button' value='To code' onClick='code()'/> </p>
+    <p><input type='text' id= 'codedMessage'/>encoded message</p>
+    <p><input type='button' value='To decode' onclick='decode()'/></p>
+    <p><input type='text' id='decodedMessage'/>decoded message</p>
+</body>
+</html>
